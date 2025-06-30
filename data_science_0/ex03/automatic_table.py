@@ -9,15 +9,15 @@ load_dotenv()
 def create_table(file_data, filename) -> None:
     columns = file_data.columns
 
-    command = f"""
-                CREATE TABLE {filename} (
-                    event_id SERIAL PRIMARY KEY,
-                    {columns[0]} DATE NOT NULL,
-                    {columns[1]} TEXT NOT NULL,
-                    {columns[2]} INTEGER NOT NULL,
-                    {columns[3]} REAL NOT NULL,
-                    {columns[4]} BIGINT NOT NULL,
-                    {columns[5]} VARCHAR(255) NOT NULL
+    command_create = f"""
+                CREATE TABLE IF NOT EXISTS {filename} (
+                    id SERIAL PRIMARY KEY,
+                    {columns[0]} DATE,
+                    {columns[1]} TEXT,
+                    {columns[2]} INTEGER,
+                    {columns[3]} REAL,
+                    {columns[4]} BIGINT,
+                    {columns[5]} VARCHAR(255)
                 )
             """
 
@@ -31,9 +31,17 @@ def create_table(file_data, filename) -> None:
 
     cur = conn.cursor()
 
-    cur.execute(command)
+    cur.execute(command_create)
     conn.commit()
     print("Table créée avec succès dans PostgreSQL")
+
+    command_copy = f"""
+                COPY {filename} ({columns[0]}, {columns[1]}, {columns[2]}, {columns[3]}, {columns[4]}, {columns[5]})
+                FROM '/tmp/{filename}.csv' DELIMITER ',' CSV HEADER;
+            """
+    cur.execute(command_copy)
+    conn.commit()
+    print("Table rempli avec succès dans PostgreSQL")
 
     cur.close()
     conn.close()
@@ -47,7 +55,6 @@ def read_file(path: str) -> None:
 
     file_data = pd.read_csv(path)
     filename = path.split(".csv")[0].split('/')[1]
-    print(filename)
     create_table(file_data, filename)
 
 

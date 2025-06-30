@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Fichiers d'environnement
+.env
+.env.*
+
+# Docker
+*.log
+*.pid
+docker-compose.override.yml
+
+# Données temporaires ou CSV
+*.csv
+*.db
+*.sqlite
+*.sqlite3
+
+# Dossiers spécifiques (ajuste selon ton projet)
+ex03/customer/
+ex03/item/
+ex04/customer/
+ex04/item/
+
+# Systèmes macOS
+.DS_Store
+
+# Python virtual environments
+venv/
+.env/
