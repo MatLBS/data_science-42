@@ -11,7 +11,6 @@ def create_table(file_data, filename) -> None:
 
     command = f"""
                 CREATE TABLE {filename} (
-                    id SERIAL PRIMARY KEY,
                     {columns[0]} INTEGER NOT NULL,
                     {columns[1]} VARCHAR(255) NOT NULL,
                     {columns[2]} TEXT NOT NULL

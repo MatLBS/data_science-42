@@ -1,5 +1,8 @@
 #!/bin/bash
 
+docker rm -f /postgres
+docker rm -f /pgadmin4_container
+
 docker-compose up -d
 
 docker cp /Users/mateolebrassancho/Documents/42/data_science-42/data_science_0/data/customer/data_2022_dec.csv postgres:/tmp/data_2022_dec.csv

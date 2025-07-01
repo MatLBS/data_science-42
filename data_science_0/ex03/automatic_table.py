@@ -11,7 +11,6 @@ def create_table(file_data, filename) -> None:
 
     command_create = f"""
                 CREATE TABLE IF NOT EXISTS {filename} (
-                    id SERIAL PRIMARY KEY,
                     {columns[0]} DATE,
                     {columns[1]} TEXT,
                     {columns[2]} INTEGER,
