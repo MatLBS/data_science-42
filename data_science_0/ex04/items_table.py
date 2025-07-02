@@ -10,10 +10,11 @@ def create_table(file_data, filename) -> None:
     columns = file_data.columns
 
     command = f"""
-                CREATE TABLE {filename} (
-                    {columns[0]} INTEGER NOT NULL,
-                    {columns[1]} VARCHAR(255) NOT NULL,
-                    {columns[2]} TEXT NOT NULL
+                CREATE TABLE IF NOT EXISTS {filename} (
+                    {columns[0]} INTEGER,
+                    {columns[1]} BIGINT,
+                    {columns[2]} VARCHAR(255),
+                    {columns[3]} TEXT
                 )
             """
 
@@ -30,6 +31,14 @@ def create_table(file_data, filename) -> None:
     cur.execute(command)
     conn.commit()
     print("Table créée avec succès dans PostgreSQL")
+
+    command_copy = f"""
+                COPY {filename} ({columns[0]}, {columns[1]}, {columns[2]}, {columns[3]})
+                FROM '/tmp/{filename}.csv' DELIMITER ',' CSV HEADER;
+            """
+    cur.execute(command_copy)
+    conn.commit()
+    print("Table rempli avec succès dans PostgreSQL")
 
     cur.close()
     conn.close()
