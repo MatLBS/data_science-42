@@ -8,21 +8,14 @@ load_dotenv()
 
 def merge_tables():
     command_merge = f"""
-                CREATE TEMPORARY TABLE temp_customers AS (
-					SELECT CASE when i.product_id is null then c.product_id else i.product_id end as product_id
-						, event_time, event_type, price, user_id, user_session
-						, category_id, category_code, brand
-					FROM customers c
-					FULL JOIN item i
-					ON c.product_id = i.product_id
+                CREATE TABLE temp_customers AS (
+                    SELECT CASE when i.product_id is null then c.product_id else i.product_id end as product_id
+                        , event_time, event_type, price, user_id, user_session
+                        , category_id, category_code, brand
+                    FROM customers c
+                    FULL JOIN item i
+                    ON c.product_id = i.product_id
                 );
-				TRUNCATE customers;
-				ALTER TABLE customers
-				ADD COLUMN category_id BIGINT,
-				ADD COLUMN category_code VARCHAR(255),
-				ADD COLUMN brand TEXT;
-                INSERT INTO customers 
-				SELECT * FROM temp_customers;
             """
 
     conn = psycopg2.connect(
@@ -93,8 +86,7 @@ def read_file(path: str) -> None:
 
 def main():
     try:
-        read_file("/Users/mateolebrassancho/Documents/42/data_science-42/"
-        "data_science_1/ex00/item/item.csv")
+        read_file("/home/matle-br/Desktop/data_science-42/data_science_1/ex00/item/item.csv")
         merge_tables()
     except AssertionError as error:
         print(AssertionError.__name__ + ":", error)
