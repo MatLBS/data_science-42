@@ -35,7 +35,8 @@ def create_table(file_data, filename) -> None:
     print("Table créée avec succès dans PostgreSQL")
 
     command_copy = f"""
-                COPY {filename} ({columns[0]}, {columns[1]}, {columns[2]}, {columns[3]}, {columns[4]}, {columns[5]})
+                COPY {filename} ({columns[0]}, {columns[1]},
+                {columns[2]}, {columns[3]}, {columns[4]}, {columns[5]})
                 FROM '/tmp/{filename}.csv' DELIMITER ',' CSV HEADER;
             """
     cur.execute(command_copy)
