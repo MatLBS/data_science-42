@@ -1,7 +1,7 @@
 # version: '3.9'
 
 services:
-  db:
+  postgres:
     image: postgres:14-alpine
     container_name: postgres
     ports:
@@ -23,7 +23,7 @@ services:
       - "8888:80"
     env_file: .env
     depends_on:
-      - db
+      - postgres
     environment:
       PGADMIN_DEFAULT_EMAIL: ${POSTGRES_LOGIN}@domain-name.com
       PGADMIN_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD}

@@ -35,7 +35,8 @@ def create_table(file_data, filename) -> None:
     print("Table créée avec succès dans PostgreSQL")
 
     command_copy = f"""
-                COPY {filename} ({columns[0]}, {columns[1]}, {columns[2]}, {columns[3]}, {columns[4]}, {columns[5]})
+                COPY {filename} ({columns[0]}, {columns[1]},
+                {columns[2]}, {columns[3]}, {columns[4]}, {columns[5]})
                 FROM '/tmp/{filename}.csv' DELIMITER ',' CSV HEADER;
             """
     cur.execute(command_copy)
@@ -47,27 +48,25 @@ def create_table(file_data, filename) -> None:
     print("La connexion PostgreSQL est fermée")
 
 
-def read_file(path: str) -> None:
+def read_file(path: str, filename: str) -> None:
     assert isinstance(path, str), "The path must be a string"
     assert os.path.exists(path), "The file does not exists"
     assert path.endswith(".csv"), "The file extension must be csv"
 
     file_data = pd.read_csv(path)
-    filename = path.split(".csv")[0].split('/')[1]
+    filename = filename.split(".csv")[0]
     create_table(file_data, filename)
 
 
 def create_tables():
     path = (
-        "/home/matle-br/Desktop/data_science-42/"
-        "data_science_1/ex00/customer"
+        "/home/matle-br/sgoinfre/subject/customer/"
     )
     assert os.path.exists(path), "The folder does not exists"
     files = os.listdir(path)
 
-    path = path.split('/')
     for file in files:
-        read_file(path[len(path) - 1] + "/" + file)
+        read_file(path + file, file)
 
 
 def main():
