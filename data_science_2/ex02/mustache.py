@@ -91,7 +91,7 @@ def call_data():
     )
     cur = conn.cursor()
 
-    # draw_first_charts(cur)
+    draw_first_charts(cur)
     draw_chart3(cur)
 
     conn.commit()

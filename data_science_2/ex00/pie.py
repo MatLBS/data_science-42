@@ -23,14 +23,15 @@ def draw_pie():
     cur = conn.cursor()
     cur.execute(command_retrive_data)
     results = cur.fetchall()
+    results = [x[0] for x in results]
     conn.commit()
     cur.close()
     conn.close()
 
-    view = results.count(('view',))
-    purchase = results.count(('purchase',))
-    remove_from_cart = results.count(('remove_from_cart',))
-    cart = results.count(('cart',))
+    view = results.count('view')
+    purchase = results.count('purchase')
+    remove_from_cart = results.count('remove_from_cart')
+    cart = results.count('cart')
 
     y = [view, cart, remove_from_cart, purchase]
     mylabels = ["view", "cart", "remove_from_cart", "purchase"]
