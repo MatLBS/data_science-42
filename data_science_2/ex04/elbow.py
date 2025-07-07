@@ -19,7 +19,9 @@ def elbow_method(cur):
                 FROM customers
                 WHERE event_type = 'purchase'
                 GROUP BY user_id
-                ORDER BY purchases 25
+                HAVING COUNT(*) < 25
+                ORDER BY purchases
+
             """
 
     cur.execute(command_retrive_data)

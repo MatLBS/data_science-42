@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
 import datetime as dt
-import matplotlib.ticker as ticker
+from matplotlib.ticker import FuncFormatter
 
 load_dotenv()
 
@@ -77,8 +77,12 @@ def draw_chart2(cur):
 
     ax.tick_params(axis='both', labelsize=7)
     ax.set_ylabel('Total sales in million of ₳', fontsize=7)
+
+    def millions(x, pos):
+        return f'{x / 1e6:.1f}'
     ax.set_xlabel('month', fontsize=7)
 
+    ax.yaxis.set_major_formatter(FuncFormatter(millions))
     plt.show()
 
 
