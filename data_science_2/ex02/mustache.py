@@ -3,9 +3,7 @@ import os
 import psycopg2
 from dotenv import load_dotenv
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 import seaborn as sns
-import datetime as dt
 
 load_dotenv()
 
@@ -37,7 +35,9 @@ def draw_first_charts(cur):
     ax1.tick_params(axis='both', labelsize=7)
     ax1.set_xlabel('price', fontsize=7)
 
-    box = ax2.boxplot(results, vert=False, widths=0.8, patch_artist=True, showfliers=False)
+    box = ax2.boxplot(
+        results, vert=False, widths=0.8, patch_artist=True, showfliers=False
+    )
     for patch in box['boxes']:
         patch.set_facecolor('lightgreen')
     for patch in box['medians']:
@@ -68,7 +68,6 @@ def draw_chart3(cur):
 
     box = ax.boxplot(results, vert=False, widths=0.8, patch_artist=True)
 
-
     for patch in box['boxes']:
         patch.set_facecolor('lightblue')
 
@@ -76,7 +75,6 @@ def draw_chart3(cur):
     ax.set_xticks(range(26, 43, 2))
     ax.tick_params(axis='both', labelsize=7)
     ax.set_xlabel('price', fontsize=7)
-
 
     plt.show()
 

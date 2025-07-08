@@ -58,7 +58,10 @@ def read_file(path: str, filename: str) -> None:
 
 def main():
     try:
-        read_file("/home/matle-br/sgoinfre/subject/item/item.csv", "items.csv")
+        path = os.path.expanduser(
+            "~/sgoinfre/subject/item/item.csv"
+        )
+        read_file(path, "items.csv")
     except AssertionError as error:
         print(AssertionError.__name__ + ":", error)
 

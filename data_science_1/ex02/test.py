@@ -1,18 +1,19 @@
-import pandas as pd
 import os
 import psycopg2
 from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def remove_duplicates() -> None:
 
-    command_remove = f"""
+    command_remove = """
                 CREATE TABLE IF NOT EXISTS new_customers AS
                 (
-                	SELECT event_type, product_id, user_id, user_session, count(*)
-                	FROM customers
-                	GROUP BY event_type, product_id, user_id, user_session
+                    SELECT event_type, product_id,
+                    user_id, user_session, count(*)
+                    FROM customers
+                    GROUP BY event_type, product_id, user_id, user_session
                 )
             """
 

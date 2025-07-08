@@ -59,8 +59,8 @@ def read_file(path: str, filename: str) -> None:
 
 
 def create_tables():
-    path = (
-        "/home/matle-br/sgoinfre/subject/customer/"
+    path = os.path.expanduser(
+        "~/sgoinfre/subject/customer/"
     )
     assert os.path.exists(path), "The folder does not exists"
     files = os.listdir(path)

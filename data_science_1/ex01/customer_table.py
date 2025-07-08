@@ -1,4 +1,3 @@
-import pandas as pd
 import os
 import psycopg2
 from dotenv import load_dotenv
@@ -8,7 +7,7 @@ load_dotenv()
 
 def merge_tables() -> None:
 
-    command_merge = f"""
+    command_merge = """
                 CREATE TABLE IF NOT EXISTS customers AS
                 (
                     SELECT * FROM data_2022_dec

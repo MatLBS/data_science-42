@@ -13,12 +13,13 @@ services:
       POSTGRES_DB: ${POSTGRES_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - piscineds
     restart: always
 
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4_container
-    restart: always
     ports:
       - "8888:80"
     env_file: .env
@@ -29,6 +30,14 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - piscineds
+    restart: always
+
+networks:
+  piscineds:
+    name: inception
+    driver: bridge
 
 volumes:
   postgres_data:

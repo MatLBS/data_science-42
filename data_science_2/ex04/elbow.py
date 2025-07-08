@@ -1,11 +1,8 @@
-import pandas as pd
 import os
 import psycopg2
 from dotenv import load_dotenv
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 import seaborn as sns
-import datetime as dt
 import sklearn.cluster as cluster
 import matplotlib.ticker as mticker
 import numpy as np
@@ -21,23 +18,22 @@ def elbow_method(cur):
                 GROUP BY user_id
                 HAVING COUNT(*) < 25
                 ORDER BY purchases
-
             """
 
     cur.execute(command_retrive_data)
     data = cur.fetchall()
     data = np.array([x[1] for x in data]).reshape(-1, 1)
-    
+
     kmeans_kwargs = {
         "init": "random",
         "n_init": 10,
         "random_state": 1,
     }
 
-    K=range(1, 11)
+    K = range(1, 11)
     wss = []
     for k in K:
-        kmeans=cluster.KMeans(n_clusters=k, **kmeans_kwargs).fit(data)
+        kmeans = cluster.KMeans(n_clusters=k, **kmeans_kwargs).fit(data)
         wss.append(kmeans.inertia_)
 
     sns.set(style="darkgrid")

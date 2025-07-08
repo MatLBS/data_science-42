@@ -1,11 +1,8 @@
-import pandas as pd
 import os
 import psycopg2
 from dotenv import load_dotenv
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 import seaborn as sns
-import datetime as dt
 
 load_dotenv()
 
@@ -13,11 +10,11 @@ load_dotenv()
 def draw_charts(cur):
     command_retrive_orders = """
                 SELECT COUNT(user_id)
-				FROM customers
-				WHERE event_type = 'purchase'
-				GROUP BY user_id
+                FROM customers
+                WHERE event_type = 'purchase'
+                GROUP BY user_id
             """
-    
+
     command_retrive_spending = """
                 SELECT SUM(price) AS count, user_id
                 FROM customers
@@ -33,7 +30,6 @@ def draw_charts(cur):
     cur.execute(command_retrive_spending)
     data_spending = cur.fetchall()
     data_spending = [result[0] for result in data_spending]
-
 
     sns.set(style="darkgrid")
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))

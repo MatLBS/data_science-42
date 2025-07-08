@@ -1,4 +1,3 @@
-import pandas as pd
 import os
 import psycopg2
 from dotenv import load_dotenv
@@ -7,21 +6,25 @@ load_dotenv()
 
 
 def merge_tables():
-    command_merge = f"""
+    command_merge = """
                 ALTER TABLE IF EXISTS customers
                 ADD category_id bigint[],
                 ADD category_code text[],
                 ADD brand text[];
                 CREATE TEMPORARY TABLE temp AS (
                     SELECT product_id,
-                    ARRAY_AGG(DISTINCT category_id) FILTER(WHERE category_id IS NOT NULL) AS category_id,
-                    ARRAY_AGG(DISTINCT category_code) FILTER(WHERE category_code IS NOT NULL) AS category_code,
-                    ARRAY_AGG(DISTINCT brand) FILTER(WHERE brand IS NOT NULL) AS brand
+                    ARRAY_AGG(DISTINCT category_id)
+                    FILTER(WHERE category_id IS NOT NULL) AS category_id,
+                    ARRAY_AGG(DISTINCT category_code)
+                    FILTER(WHERE category_code IS NOT NULL) AS category_code,
+                    ARRAY_AGG(DISTINCT brand)
+                    FILTER(WHERE brand IS NOT NULL) AS brand
                     FROM items
                     GROUP BY product_id
                 );
                 UPDATE customers
-                SET category_id=temp.category_id, category_code=temp.category_code, brand=temp.brand 
+                SET category_id=temp.category_id,
+                category_code=temp.category_code, brand=temp.brand
                 FROM temp
                 WHERE customers.product_id=temp.product_id
             """

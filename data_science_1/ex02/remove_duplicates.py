@@ -1,14 +1,14 @@
-import pandas as pd
 import os
 import psycopg2
 from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def remove_duplicates() -> None:
 
-    command_remove = f"""
-                CREATE TEMPORARY TABLE temp_customers AS 
+    command_remove = """
+                CREATE TEMPORARY TABLE temp_customers AS
                 SELECT DISTINCT * FROM customers;
                 TRUNCATE customers;
                 INSERT INTO customers SELECT * FROM temp_customers;
