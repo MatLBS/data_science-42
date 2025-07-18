@@ -9,18 +9,21 @@ def draw_graphs_test(path):
     assert path.endswith(".csv"), "The file extension must be csv"
 
     data = pd.read_csv(path)
-    columns = data.columns
+    fig, ax = plt.subplots(1, 2, figsize=(14, 7))
 
-    fig, ax = plt.subplots(6, 5, figsize=(14, 10))
-    k = 0
+    ax[0].scatter(data['Empowered'], data['Stims'],
+                  alpha=0.5, color='green', label='Knight')
+    ax[0].set_xlabel("Empowered")
+    ax[0].set_ylabel("Stims")
+    ax[0].legend()
 
-    for i in range(6):
-        for j in range(5):
-            ax[i][j].hist(data[columns[k]], 50, density=False,
-                          color='green', alpha=0.7, label='knight')
-            ax[i][j].set_title(columns[k], fontsize=10)
-            ax[i][j].legend()
-            k += 1
+    ax[1].scatter(data['Push'], data['Deflection'],
+                  alpha=0.5, color='green', label='Knight')
+    ax[1].set_xlabel("Push")
+    ax[1].set_ylabel("Deflection")
+    ax[1].set_ylim(0, 0.08)
+    ax[1].legend()
+
     fig.suptitle('Test Knight Histograms', fontsize=16)
     plt.tight_layout()
     plt.show()
@@ -32,22 +35,27 @@ def draw_graphs_train(path):
     assert path.endswith(".csv"), "The file extension must be csv"
 
     data = pd.read_csv(path)
-    columns = data.columns
-
-    fig, ax = plt.subplots(6, 5, figsize=(14, 10))
-    k = 0
+    fig, ax = plt.subplots(1, 2, figsize=(14, 7))
     jedi = data[data['knight'] == 'Jedi']
     sith = data[data['knight'] == 'Sith']
 
-    for i in range(6):
-        for j in range(5):
-            ax[i][j].hist(jedi[columns[k]], bins=50,
-                          alpha=0.6, label='Jedi', color='blue')
-            ax[i][j].hist(sith[columns[k]], bins=50,
-                          alpha=0.6, label='Sith', color='red')
-            ax[i][j].set_title(columns[k], fontsize=10)
-            ax[i][j].legend()
-            k += 1
+    ax[0].scatter(jedi['Empowered'], jedi['Stims'],
+                  alpha=0.5, color='blue', label='Jedi')
+    ax[0].scatter(sith['Empowered'], sith['Stims'],
+                  alpha=0.5, color='red', label='Sith')
+    ax[0].set_xlabel("Empowered")
+    ax[0].set_ylabel("Stims")
+    ax[0].legend()
+
+    ax[1].scatter(jedi['Push'], jedi['Deflection'],
+                  alpha=0.5, color='blue', label='Jedi')
+    ax[1].scatter(sith['Push'], sith['Deflection'],
+                  alpha=0.5, color='red', label='Sith')
+    ax[1].set_xlabel("Push")
+    ax[1].set_ylabel("Deflection")
+    ax[1].set_ylim(0, 0.08)
+    ax[1].legend()
+
     fig.suptitle('Train Knight Histograms', fontsize=16)
     plt.tight_layout()
     plt.show()

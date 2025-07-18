@@ -38,7 +38,7 @@ def clustering(cur):
     cur.execute(command_retrive_data)
     data = cur.fetchall()
     data = np.array([[x[2], x[3]] for x in data])
-    nb_clusters = 4
+    nb_clusters = 3
 
     fig, ax = plt.subplots()
     colors = ['red', 'green', 'blue', 'cyan', 'magenta',

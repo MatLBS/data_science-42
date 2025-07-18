@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Fichiers d'environnement
+.env
+.env.*
+
+# Docker
+*.log
+*.pid
+docker-compose.override.yml
+
+# Données temporaires ou CSV
+*.csv
+*.db
+*.sqlite
+*.sqlite3
+
+# Systèmes macOS
+.DS_Store
+
+# Python virtual environments
+venv/
+.env/

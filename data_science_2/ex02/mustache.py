@@ -66,10 +66,14 @@ def draw_chart3(cur):
     sns.set(style="darkgrid")
     fig, ax = plt.subplots()
 
-    box = ax.boxplot(results, vert=False, widths=0.8, patch_artist=True)
+    box = ax.boxplot(
+        results, vert=False, widths=0.8, patch_artist=True, showfliers=True
+    )
 
     for patch in box['boxes']:
         patch.set_facecolor('lightblue')
+    for patch in box['medians']:
+        patch.set_color('black')
 
     ax.set_yticks([])
     ax.set_xticks(range(26, 43, 2))
