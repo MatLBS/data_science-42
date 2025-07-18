@@ -13,7 +13,6 @@ __pycache__/
 
 # Fichiers d'environnement
 .env
-.env.*
 
 # Docker
 *.log
